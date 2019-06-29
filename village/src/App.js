@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Route, NavLink } from "react-router-dom"
+
 import axios from 'axios';
 
 import './App.css';
@@ -29,10 +31,20 @@ class App extends Component {
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
   render() {
+    const { smurfs } = this.state
+
     return (
       <div className="App">
-        <SmurfForm />
-        <Smurfs smurfs={this.state.smurfs} />
+
+        <nav>
+          <div className="nav-links">
+            <NavLink to="/">Smurf Village</NavLink>
+            <NavLink to="/smurf-form">Add a New Smurf</NavLink>
+          </div>
+        </nav>
+
+        <Route exact path="/" render={(props) => <Smurfs {...props} smurfs={smurfs} />} />
+        <Route path="/smurf-form" render={(props) => <SmurfForm {...props} smurfs={smurfs} />} />
       </div>
     );
   }
